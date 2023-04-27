@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "AdminLockCus", value = "/admin/AdminLockCus")
+@WebServlet(name = "AdminLockCus", value = "/AdminLockCus")
 public class AdminLockCus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="css/select2.min.css">
     <link rel="stylesheet" href="css/ionicons.min.css">
-    <link href="css/style.css" rel="stylesheet">
+<%--    <link href="css/style.css" rel="stylesheet">--%>
 
 
     <!-- Favicons -->
@@ -31,7 +31,7 @@
     <%--    css --%>
     <link rel="stylesheet" href="css/admin.css">
     <!-- index css -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
@@ -87,13 +87,13 @@
             <a href="./ListProduct_Admin" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Sản Phẩm</a>
 
             <a href="./ListCustomer" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Khách Hàng</a>
-            <a href="./ListBlog-admin" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Tin Tức</a>
+<%--            <a href="./ListBlog-admin" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Tin Tức</a>--%>
             <a href="./ListReceipt_full_Admin" class="nav-item nav-link "><i class="fa fa-th me-2"></i>DS Đơn Hàng</a>
-            <a href="feedbacks.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Đánh giá</a>
+<%--            <a href="feedbacks.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Đánh giá</a>--%>
 
-            <a href="catalog_Management.jsp" class="nav-item nav-link"><i class="fa fa-file me-2"></i>QL danh mục</a>
-            <a href="List_Discounts" class="nav-item nav-link"><i class="fa fa-birthday-cake me-2"></i>Khuyến mãi</a>
-            <a href="../Index" class="nav-item nav-link"><i class="fa fa-arrow-alt-circle-right me-2"></i>Về trang
+<%--            <a href="catalog_Management.jsp" class="nav-item nav-link"><i class="fa fa-file me-2"></i>QL danh mục</a>--%>
+<%--            <a href="List_Discounts" class="nav-item nav-link"><i class="fa fa-birthday-cake me-2"></i>Khuyến mãi</a>--%>
+            <a href="#" class="nav-item nav-link"><i class="fa fa-arrow-alt-circle-right me-2"></i>Về trang
                 chủ</a>
             <!--  -->
         </div>
@@ -173,8 +173,8 @@
                                 <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                     <div class="form__group">
                                         <label class="form__label" for="oldpass">Mật khẩu hiện tại</label>
-                                        <input id="oldpass" type="password" name="oldpass" class="form__input m-0">
-                                        <p id="error" class="text-danger m-0 small"></p>
+                                        <input id="oldpass" type="password" name="oldpass" class="form__input m-0" value="">
+                                        <p id="error" class="text-danger m-0 small" ></p>
                                     </div>
                                 </div>
 

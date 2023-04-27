@@ -30,7 +30,7 @@
     <link href="admin/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="admin/css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -89,8 +89,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Template Javascript -->
-    <script src="admin/js/main.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 
 </html>

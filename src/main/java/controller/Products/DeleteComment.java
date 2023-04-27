@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "DeleteComment", value = "/admin/Product/DeleteComment")
+@WebServlet(name = "DeleteComment", value = "/Product/DeleteComment")
 public class DeleteComment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

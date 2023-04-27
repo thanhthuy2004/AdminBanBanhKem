@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@WebServlet(name = "ListProduct_Admin", value = "/admin/ListProduct_Admin")
+@WebServlet(name = "ListProduct_Admin", value = "/ListProduct_Admin")
 public class ListProduct_Admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "AdminChangePassWord", value = "/admin/AdminChangePassWord")
+@WebServlet(name = "AdminChangePassWord", value = "/AdminChangePassWord")
 public class AdminChangePassWord extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

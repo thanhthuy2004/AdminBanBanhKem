@@ -31,7 +31,7 @@
     <link href="admin/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="admin/css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -110,44 +110,8 @@
 <script src="admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/admin.js"></script>
 
-
-<!-- Template Javascript -->
-<script src="admin/js/main.js"></script>
-<script src="js/main.js"></script>
-
-<!-- LOGIN ADMIN -->
-<%--    <script>--%>
-<%--        document.getElementById('login-button').onclick = function(){--%>
-<%--        var myEmail = document.getElementById("floatingInput").value;--%>
-<%--        var myPass = document.getElementById("floatingPassword").value;--%>
-
-<%--        var listEmail = ["nhom27@gmail.com", "nhom27ltw@gmail.com"];--%>
-<%--        var listPass = ["123", "1234"];--%>
-<%--        var checkU = false;--%>
-<%--        var indexU = 0;--%>
-<%--        for (var i = 0; i < listEmail.length; i++) {--%>
-<%--            if (myEmail == listEmail[i]) {--%>
-<%--                checkU = true;--%>
-<%--                indexU = i;--%>
-<%--                break;--%>
-<%--            } else {--%>
-<%--                checkU = false;--%>
-<%--            }--%>
-<%--        }--%>
-<%--        if (checkU === true) {--%>
-<%--            if (myPass == listPass[indexU]) {--%>
-<%--                window.location.href = "./admin-web.html";--%>
-<%--                return false;--%>
-<%--            } else {--%>
-<%--                document.getElementById("insertTextHere").textContent="*Sai Password";--%>
-<%--            }--%>
-<%--        } else {--%>
-<%--            document.getElementById("insertTextHere").textContent="*Username không hợp lệ hoặc sai";--%>
-<%--        }--%>
-<%--        --%>
-<%--        }--%>
-<%--    </script>--%>
 </body>
 
 </html>

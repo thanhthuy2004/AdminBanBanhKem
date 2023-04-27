@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "adminChangeStateOrder", value = "/admin/adminChangeStateOrder")
+@WebServlet(name = "adminChangeStateOrder", value = "/adminChangeStateOrder")
 public class adminChangeStateOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
