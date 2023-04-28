@@ -282,6 +282,7 @@ public class ProductService {
             se.printStackTrace();
         }
     }
+//    7. Chạy câu lệnh Update
     public static  void removeProduct(String id){
         Statement statement = DBConnect.getInstall().get();
         String sql = "UPDATE products set STATUS = -1 where idProduct = '"+id+"';";

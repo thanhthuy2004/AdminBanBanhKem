@@ -9,6 +9,8 @@
 <%@ page contentType="text/html;charsetUTF-8" language="java" pageEncoding="utf-8" %>
 <html lang="xzz">
 <meta http-equiv="Content-Type" charset="UTF-8">
+
+<!-- 1. Hiển thị danh sách sản phẩm -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -271,6 +273,7 @@
                                         <i class="fas fa-eye-slash"></i>
                                     </a>
                                     <%} else {%>
+                                    <!-- 2. Nhấn mục "Xoá" -->
                                     <a href="#modal-hiden<%=pro.getId()%>"
                                        class="main__table-btn main__table-btn--banned open-modal">
                                         <i class="fa fa-eye" style="color: #24cc63"></i>
@@ -312,15 +315,23 @@
                                     </div>
                                 </div>
                                 <!-- end modal unHiden -->
+                                <!-- 3. Hiển thị popup xác nhận xoá sản phẩm -->
                                 <div id="modal-delete<%=pro.getId()%>" class="zoom-anim-dialog mfp-hide modal">
                                     <h6 class="modal__title">Xóa Sản Phẩm</h6>
                                     <p class="modal__text">Bạn có chắc muốn xóa sản phẩm này?</p>
+
+                                    <!-- 5. Gọi đến servlet DeleteProduct-->
                                     <%String urlq = "DeleteProduct?masp=" + pro.getId();%>
                                     <div class="modal__btns">
+                                        <!-- 4. Nhấn mục "xoá" -->
                                         <button class="modal__btn modal__btn--apply" onclick="changeHref('<%=urlq%>')"
                                                 type="button">Xóa
                                         </button>
+                                        <!-- 4.a Nhấn mục quay lại -->
+
                                         <button class="modal__btn modal__btn--dismiss" type="button">Quay lại</button>
+                                        <!-- 4.b Hiển thị danh sách sản phẩm -->
+
                                     </div>
                                 </div>
                             </td>
