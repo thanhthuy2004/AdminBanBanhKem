@@ -197,6 +197,7 @@ public class UserService {
             se.printStackTrace();
         }
     }
+    
     public static void updateProfile(String name, String sdt, String diachi, String mail, User auth)  {
         if(name == null || sdt == null || diachi == null || mail == null) return;
         String idACC = auth.getId();
@@ -206,6 +207,7 @@ public class UserService {
                 " WHERE CUSTOMERS.id = '"+idACC+"' and CUSTOMERS.id = ACCOUNTS.id";
         Statement stm  =  DBConnect.getInstall().get();
         try {
+            // chạy câu lệnh UPDATE
             stm.executeUpdate(sql1);
             auth.setName(name);
             auth.setEmail(mail);
