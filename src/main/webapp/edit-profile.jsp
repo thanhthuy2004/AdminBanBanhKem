@@ -113,6 +113,7 @@
             <!-- end main title -->
 
             <!-- form -->
+             <!-- 2. Hiển thị form -->
             <div class="col-12">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -157,6 +158,7 @@
 
                             </div>
                             <div class="col-6" style="padding: 0;">
+                                 
                                 <button onclick="changeProfileAdmin()" type="button" class="form__btn">Lưu thay đổi</button>
                             </div>
 
