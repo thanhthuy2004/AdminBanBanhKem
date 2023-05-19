@@ -805,9 +805,9 @@ INSERT INTO productDetails VALUES('B100', 10, 10, '2022/10/12', '2022/10/15');
 
 /*=========================================ACCOUNTS=========================================*/
 CREATE TABLE ACCOUNTS(ID CHAR(50) PRIMARY KEY not null,
-                      EMAIL VARCHAR(255),
+                      EMAIL VARCHAR(255) not null,
                       PASS VARCHAR(255),
-                      NAME VARCHAR(100),
+                      NAME VARCHAR(100) not null,
                       ROLE tinyint(4) NOT NULL DEFAULT 0,
                       STATUS tinyint(4) DEFAULT 0, TYPE VARCHAR(10),
                       ISADD tinyint(4) NOT NULL DEFAULT 0,

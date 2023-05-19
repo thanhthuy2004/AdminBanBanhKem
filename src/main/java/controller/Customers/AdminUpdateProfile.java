@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "AdminUpdateProfile", value = "/AdminUpdateProfile")
 public class AdminUpdateProfile extends HttpServlet {
@@ -30,8 +31,9 @@ public class AdminUpdateProfile extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
-//  Gọi đến hàm updateProfile(username, phone, address, email, auth)
-        UserService.updateProfile(username, phone, address, email, auth);
+//  7. Gọi đến hàm updateProfile(username, phone, address, email, auth)
+       UserService.updateProfile(username, phone, address, email, auth);
+
         request.getRequestDispatcher("edit-profile.jsp").forward(request, response);
     }
 }
