@@ -1,5 +1,5 @@
-CREATE DATABASE banbanhkem;
-use banbanhkem;
+CREATE DATABASE banbanhkemchiquanli;
+use banbanhkemchiquanli;
 -- --
 /*==============================typeOfCake=====================================*/
 create table typeOfCake(idType char (4) not null PRIMARY key, name varchar(40));
