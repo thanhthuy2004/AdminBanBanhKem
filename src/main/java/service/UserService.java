@@ -94,26 +94,6 @@ public class UserService {
         return list;
 
     }
-    public static List<User> getListUser(){
-        List<User> list = new ArrayList<User>();
-        Statement statement = DBConnect.getInstall().get();
-        if(statement !=null){
-            try{
-                ResultSet rsAcc = statement.executeQuery("select  ACCOUNTS.ID, ACCOUNTS.EMAIL, ACCOUNTS.PASS, ACCOUNTS.NAME, ACCOUNTS.ROLE, ACCOUNTS.STATUS, ACCOUNTS.TYPE, ACCOUNTS.ISADD, ACCOUNTS.ISEDIT, ACCOUNTS.ISDELETE from ACCOUNTS");
-                while(rsAcc.next()){
-                    list.add(new User(rsAcc.getString(1), rsAcc.getString(2), rsAcc.getString(3), rsAcc.getString(4), rsAcc.getInt(5), rsAcc.getInt(6), rsAcc.getString(7), rsAcc.getInt(8), rsAcc.getInt(9), rsAcc.getInt(10)));
-                }
-            }
-            catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-        else{
-            System.out.println("Không có tai khoan");
-        }
-        return list;
-
-    }
     public static String getLastMaTK(){
         Statement statement = DBConnect.getInstall().get();
         String result = "";
@@ -152,18 +132,6 @@ public class UserService {
                 String sql = "insert into ACCOUNTS values('" + ID + "', '" + acc.getEmail() + "', '" + hashPassword(acc.getPass())  + "', '" + acc.getName() + "'," + acc.getRole() +","+ acc.getStatus()+","+acc.getType()+",0,0,0);";
                 stm.executeUpdate(sql);
 
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
-    public static void addAccGG(User acc){
-        Statement stm = DBConnect.getInstall().get();
-        if(stm!= null) {
-            try {
-                String sql = "insert into ACCOUNTS(ID,EMAIL,NAME,ROLE, STATUS,TYPE, ISADD, ISEDIT, ISDELETE) values('" + acc.getId() + "', '" + acc.getEmail() + "', '" + acc.getName() + "'," + acc.getRole() +","+ acc.getStatus()+",'"+acc.getType()+"',0,0,0);";
-                stm.executeUpdate(sql);
-                System.out.println(sql);
             } catch (SQLException se) {
                 se.printStackTrace();
             }
@@ -213,24 +181,6 @@ public class UserService {
             auth.setEmail(mail);
             CustomerService.getCusByIdAcc(auth.getId()).setDIACHI(diachi);
             CustomerService.getCusByIdAcc(auth.getId()).setSDT(sdt);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static User findByEmail(String email){
-        for(User u: getListAcc()){
-            if(!checkEmail(email) && u.getEmail().equals(email)){
-                return u;
-            }
-        }
-        return null;
-    }
-    public static void updateType(String email, String type)  {
-        String sql = "UPDATE ACCOUNTS set TYPE = '"+type+"' where EMAIL like "+ "'"+email+"'";
-        Statement stm  =  DBConnect.getInstall().get();
-        try {
-            stm.executeUpdate(sql);
-
         } catch (SQLException se) {
             se.printStackTrace();
         }

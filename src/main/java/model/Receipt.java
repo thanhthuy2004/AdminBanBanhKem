@@ -97,19 +97,12 @@ public class Receipt {
         }
         return "Đã hủy";
     }
-    public boolean checkState(){
-        if(this.status == 0 || this.status == 1) return true;
-        return false;
-    }
 
 
     public String getMakh() {
         return makh;
     }
 
-    public void setMakh(String makh) {
-        this.makh = makh;
-    }
 
     public String getId() {
         return id;
@@ -123,17 +116,8 @@ public class Receipt {
         return namecustomer;
     }
 
-    public void setNamecustomer(String namecustomer) {
-        this.namecustomer = namecustomer;
-    }
 
-    public String getNamecake() {
-        return namecake;
-    }
 
-    public void setNamecake(String namecake) {
-        this.namecake = namecake;
-    }
 
     public String getPhone() {
         return phone;
@@ -147,18 +131,11 @@ public class Receipt {
         return export_date;
     }
 
-    public void setExport_date(String export_date) {
-
-        export_date = export_date;
-    }
 
     public String getDelivery_date() {
         return delivery_date;
     }
 
-    public void setDelivery_date(String delivery_date) {
-        delivery_date = delivery_date;
-    }
 
     public String getAddress() {
         return address;
@@ -176,21 +153,11 @@ public class Receipt {
         }
         return "Quản Lí";
     }
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public int getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     public int getStatus() {
         return status;
@@ -200,13 +167,6 @@ public class Receipt {
         this.status = status;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
 
 
 

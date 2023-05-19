@@ -288,17 +288,6 @@ public class ReceiptService {
         return null;
     }
 
-    public static List<Receipt> getReceiptByMakh(String makh) {
-        List<Receipt> list = getAllReceipt();
-        List<Receipt> rs = new ArrayList<>();
-        for (Receipt rc : list) {
-            if (rc.getMakh().equals(makh)) {
-                rs.add(rc);
-            }
-        }
-
-        return rs;
-    }
 
     public static List<String> getAllStatusNameOrder() {
         List<String> list = new ArrayList<>();
@@ -345,17 +334,6 @@ public class ReceiptService {
         }
     }
 
-    public static void buyAgain(String mahd) {
-        Statement stm = DBConnect.getInstall().get();
-        if (stm != null) {
-            try {
-                String sql = "UPDATE BILLS set BILLS.STATUS = 0 WHERE BILLS.ID ='" + mahd + "'";
-                stm.executeUpdate(sql);
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
 
     public static void updateTonKhoWhenCancelOrder(String mahd) {
         Statement stm = DBConnect.getInstall().get();
@@ -377,25 +355,6 @@ public class ReceiptService {
         }
     }
 
-    public static void updateTonKhoWhenBuyAgain(String mahd) {
-        Statement stm = DBConnect.getInstall().get();
-        List<Bill_Detail> billDetailList = getcthdUser(mahd);
-
-        if (stm != null) {
-            try {
-                for (Bill_Detail billDetail : billDetailList) {
-                    String msp = billDetail.getMasp();
-                    int sl = billDetail.getSolg();
-                    Product p = ProductService.findById(msp);
-                    int solgConLai = p.getDetail().getInventory() - sl;
-                    String sql = "UPDATE productDetails set productDetails.inventory = " + solgConLai + " WHERE productDetails.idProduct ='" + msp + "'";
-                    stm.executeUpdate(sql);
-                }
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
 
 
     public static void updateState(String mahd, int st) {
@@ -410,43 +369,6 @@ public class ReceiptService {
         }
     }
 
-    public static void updateInfoCustomerInBill(String id, String name, String phone, String mail) {
-        Statement stm = DBConnect.getInstall().get();
-        if (stm != null) {
-            try {
-                String sql = "UPDATE DELIVERY set DELIVERY.NAMECUSTOMER = '" + name + "', " +
-                        "DELIVERY.PHONE = '" + phone + "', DELIVERY.EMAIL = '" + mail + "' " +
-                        "WHERE DELIVERY.id = '" + id + "'";
-                stm.executeUpdate(sql);
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
-
-    public static void updateDeliveryInBill(String id, String deliveryDate, String address) {
-        Statement stm = DBConnect.getInstall().get();
-        if (stm != null) {
-            try {
-                String sql = "UPDATE DELIVERY set DELIVERY_DATE = '" + deliveryDate + "', ADDRESS = '" + address + "' WHERE DELIVERY.ID = '" + id + "'";
-                stm.executeUpdate(sql);
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
-
-    public static void updateNoteInBill(String id, String note) {
-        Statement stm = DBConnect.getInstall().get();
-        if (stm != null) {
-            try {
-                String sql = "UPDATE BILLS set NOTES = '" + note + "' WHERE BILLS.ID = '" + id + "'";
-                stm.executeUpdate(sql);
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
 
 
     public static void updateStatusUser(String id) {
@@ -478,84 +400,6 @@ public class ReceiptService {
         }
     }
 
-    public static void addCTHD(String id, String msp, int slg, String notes) {
-            List<String> listMsp = getListMaSpCTHD(id);
-            if(msp != null && ProductService.findById(msp) != null) {
-                Statement stm = DBConnect.getInstall().get();
-                String sql1, sql2 = "";
-                int oldTotal = getReceiptByMahd(id).getTotal();
-                int newTotal = oldTotal + (ProductService.findById(msp).getPrice() * slg);
-                getReceiptByMahd(id).setTotal(newTotal);
-
-                sql1 = "INSERT INTO BILL_DETAIL VALUES('" + id + "','" + msp + "'," + slg + ",'" + notes + "');";
-                sql2 = "UPDATE BILLS set BILLS.TOTAL_BILL = " + newTotal + " WHERE BILLS.ID ='" + id + "'";
-                String sql3 = "UPDATE bill_detail set bill_detail.AMOUNT = bill_detail.AMOUNT+" + slg + "" +
-                        " WHERE bill_detail.idProduct = '" + msp + "' and bill_detail.ID = '" + id + "'";
-                try {
-                    if (listMsp.contains(msp)) {
-                        stm.executeUpdate(sql3);
-                    } else {
-                        stm.executeUpdate(sql1);
-                    }
-                    stm.executeUpdate(sql2);
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
-            }
-
-    }
-
-
-
-    public static void deleteProInCTHD(String id, String msp, int slg) {
-        Statement stm = DBConnect.getInstall().get();
-        String sql, sql2 = "";
-
-        int oldTotal = getReceiptByMahd(id).getTotal();
-        int newTotal = oldTotal - (ProductService.findById(msp).getPrice() * slg);
-        getReceiptByMahd(id).setTotal(newTotal);
-        sql = "DELETE FROM bill_detail WHERE bill_detail.ID = '"+id+"' and bill_detail.idProduct = '"+msp+"'";
-
-        sql2 = "UPDATE BILLS set BILLS.TOTAL_BILL = " + newTotal + " WHERE BILLS.ID ='" + id + "'";
-        try {
-            if(getListMaSpCTHD(id).size() != 1){
-                stm.executeUpdate(sql);
-                stm.executeUpdate(sql2);
-            }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-
-
-    }
-//    public static void saveAdd(String id, String msp, int slg) {
-//        Statement stm = DBConnect.getInstall().get();
-//       String sql = "";
-//       int oldTotal = getReceiptByMahd(id).getTotal();
-//        int newTotal = oldTotal + (ProductService.findById(msp).getPrice() * slg);
-//        getReceiptByMahd(id).setTotal(newTotal);
-//
-//        sql = "UPDATE BILLS set BILLS.TOTAL_BILL = " + newTotal + " WHERE BILLS.ID ='" + id + "'";
-//        try {
-//           stm.executeUpdate(sql);
-//        } catch (SQLException se) {
-//            se.printStackTrace();
-//        }
-//    }
-//    public static void saveRemove(String id, String msp, int slg) {
-//        Statement stm = DBConnect.getInstall().get();
-//       String sql = "";
-//       int oldTotal = getReceiptByMahd(id).getTotal();
-//        int newTotal = oldTotal - (ProductService.findById(msp).getPrice() * slg);
-//        getReceiptByMahd(id).setTotal(newTotal);
-//
-//        sql = "UPDATE BILLS set BILLS.TOTAL_BILL = " + newTotal + " WHERE BILLS.ID ='" + id + "'";
-//        try {
-//           stm.executeUpdate(sql);
-//        } catch (SQLException se) {
-//            se.printStackTrace();
-//        }
-//    }
 
     public static void main(String[] args) {
 //        addCTHD("HD13", "B054", 2, "CMSN");
