@@ -52,7 +52,4 @@ public class ProductDetail {
         return ood;
     }
 
-    public void setOod(String ood) {
-        this.ood = ood;
-    }
 }

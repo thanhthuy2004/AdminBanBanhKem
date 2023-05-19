@@ -18,32 +18,6 @@ public class Product {
     int status;
 
 
-    public Product(String id, String name, String type, String size, int weight, String description, String introduction, List<Image> listImg, int price, List<Comment> comments,  ProductDetail details) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.size= size;
-        this.weight = weight;
-        this.description = description;
-        this.introduction=introduction;
-        this.listImg = listImg;
-        this.price = price;
-        this.comments = comments;
-        this.details =details;
-        this.status=0;
-    }
-    public Product(String id, String name, String type, String size, int weight, String description, String introduction, List<Image> listImg, int price){
-        this.id=id;
-        this.name = name;
-        this.type = type;
-        this.size= size;
-        this.weight = weight;
-        this.description = description;
-        this.introduction=introduction;
-        this.listImg = listImg;
-        this.price = price;
-        this.status =0;
-    }
     public Product(String id, String name, String type, String size, int weight, String description, String introduction, List<Image> listImg, int price, List<Comment> comments, ProductDetail details, int status) {
         this.id = id;
         this.name = name;
@@ -59,9 +33,6 @@ public class Product {
         this.status = status;
     }
 
-    public void settype(String type) {
-        this.type = type;
-    }
 
     public String getId() {
         return id;
@@ -87,9 +58,6 @@ public class Product {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public int getWeight() {
         return weight;
@@ -124,9 +92,6 @@ public class Product {
         return details;
     }
 
-    public void setListpd(ProductDetail details) {
-        this.details = details;
-    }
 
     @Override
     public String toString() {

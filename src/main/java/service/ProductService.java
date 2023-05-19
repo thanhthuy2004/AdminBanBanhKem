@@ -71,54 +71,7 @@ public class ProductService {
         }
         return p;
     }
-    public static List<Product> getHotProduct() {
-        List<Product> list = new ArrayList<>();
-        Statement statement = DBConnect.getInstall().get();
-        if (statement != null)
-            try {
-                ResultSet rs = statement.executeQuery("SELECT products.idProduct,products.STATUS ,sum(BILL_DETAIL.AMOUNT)as total FROM products, BILL_DETAIL WHERE products.idProduct = BILL_DETAIL.idProduct GROUP BY products.idProduct ORDER BY total DESC;");
-                while (rs.next()) {
-                    int status = rs.getInt(2);
-                    if(status==0) {
-                        Product p = findById(rs.getString(1)) ;
-                        list.add(p);
-                    }
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        else {
-            System.out.println("Không có sản phẩm");
-        }
 
-        return list;
-    }
-
-    public static List<Product> getNewProduct(List<Product> list ) {
-        Collections.sort(list, new IDComparator());
-        return list;
-    }
-    public static void addComment(Comment cmt, String IDUser) {
-        Statement statement = DBConnect.getInstall().get();
-
-        String sql = "insert into Comments(idProduct, ID,comment, date, STATUS) values('" + cmt.getIdProduct() + "', '" + IDUser + "', '" + cmt.getBinhLuan() + "', '" + cmt.getDate() + " '," + cmt.getStatus() +");";
-        try {
-            statement.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-
-    public static List<Product> findBySize(String size,List<Product> list) {
-        List<Product> rs = new ArrayList<>();
-        for (Product p : list) {
-            if (p.getSize().equals(size)) {
-                rs.add(p);
-            }
-        }
-        return rs;
-    }
 
     public static int getToTalProduct() {
         return getData().size();
@@ -139,124 +92,6 @@ public class ProductService {
     }
 
 
-    public static List<Product> findByType(String type,List<Product> list) {
-        List<Product> res = new ArrayList<Product>();
-        for (Product p : list) {
-            if (p.getType().equals(type)) {
-                res.add(p);
-            }
-        }
-        return res;
-    }
-
-    public static List<Product> findByName(String key, List<Product> listP) {
-        List<Product> res = new ArrayList<Product>();
-        List<String> listId = new ArrayList<String>();
-        Statement stm = DBConnect.getInstall().get();
-        String sql = "select idProduct, STATUS FROM products where productName like \"%" + key + "%\"; ";
-        try {
-            ResultSet rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                listId.add(rs.getString(1));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        for (Product p : listP) {
-            if (listId.contains(p.getId())) {
-                res.add(p);
-            }
-        }
-        return res;
-    }
-
-    public static List<Product> filterByPrice(int pricemin, int pricemax, List<Product> listP) {
-        List<Product> res = new ArrayList<Product>();
-        List<String> listId = new ArrayList<String>();
-        try{
-            PreparedStatement ps = con.prepareStatement("select idProduct FROM products where price BETWEEN ? and ?;");
-            ps.setInt(1,pricemin);
-            ps.setInt(2, pricemax);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                listId.add(rs.getString(1));
-            }
-        }catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        for (Product p : listP) {
-            if (listId.contains(p.getId())) {
-                res.add(p);
-            }
-        }
-        return res;
-    }
-    public static void updateProduct(String idProduct,String idType, String productName, String size, int weight, String description, String introduction, int price ){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE products set  idType='" +idType+ "', productName= '"+ productName+ "', size= '" + size+ "', weight= "+ weight+", description = '"+ description + "', introduction= '"+ introduction+"', price= "+price+" where idProduct = '"+idProduct+"';";
-
-        try {
-            statement.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static void updateDetail(ProductDetail pDetail){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE productDetails set  quantity= "+ pDetail.getQuantity()+ ", inventory= " + pDetail.getInventory()+ ", dateOfManufacture = '"+ pDetail.getMfg() + "', expirationDate= '"+ pDetail.getOod()+"' where idProduct = '"+pDetail.getId()+"';";
-        try {
-            statement.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static void deleteCommemt(String id){
-        Statement statement = DBConnect.getInstall().get();
-        String sql= "UPDATE comments set STATUS = -1 WHERE IdCmt="+ id+";";
-        try {
-            statement.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-
-    }
-    public static void deleteImage(String img){
-        Statement statement = DBConnect.getInstall().get();
-        String sql= "UPDATE productImgs set status = -1 where img = '"+img+"';";
-        try {
-            statement.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-        System.out.println(sql);
-    }
-    public static void upProductImg(String oldImg, String newImg){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE productImgs set  img= '"+ newImg+ "' where img = '"+oldImg+"';";
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-
-    }
-    public static void addProDuct(Product p){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "insert into products values('" + p.getId() + "', '" + p.getType() + "', '" + p.getName() + "', '" + p.getSize() + "',"
-                + p.getWeight()+",'"+ p.getDescription() + "', '"+ p.getIntroduction()+"',"+ p.getPrice()+",0);";
-        String sql1 = "insert into productDetails(idProduct) values('"+ p.getId()+"');" ;
-        try {
-            statement.executeUpdate(sql);
-            statement.executeUpdate(sql1);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-        addImg(p);
-    }
     public static  void addImg(Product p){
         Statement statement2 = DBConnect.getInstall().get();
         String sql="";
@@ -270,18 +105,6 @@ public class ProductService {
             }
         }
     }
-    public static void addImgForPro(String idProduct, String img){
-        Product p = ProductService.findById(idProduct);
-        Statement statement= DBConnect.getInstall().get();
-        String idImg = "ASP"+p.getId().substring(1)+"-"+(p.getListImg().size()+1);
-        String sql = "insert into productImgs values( '"+ idImg+"', '"+ p.getId()+"', '"+ img+"',0);";
-
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
 //    7. Chạy câu lệnh Update
     public static  void removeProduct(String id){
         Statement statement = DBConnect.getInstall().get();
@@ -292,36 +115,6 @@ public class ProductService {
             se.printStackTrace();
         }
     }
-    public static String getMaxId(){
-        String res ="";
-        String sql= "SELECT max(idProduct) from products ";
-        Statement statement = DBConnect.getInstall().get();
-        try {
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                res = rs.getString(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        String s = "B" + (Integer.parseInt(res.substring(1))+1);
-        return s;
-    }
-    public static List<String> getListSize(){
-        Statement statement = DBConnect.getInstall().get();
-        List<String> res = new ArrayList<>();
-
-        try {
-            ResultSet rs = statement.executeQuery("select distinct size from products");
-            while (rs.next()) {
-                res.add(rs.getString(1));
-            }
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-        return res;
-    }
     public static List<Product> getListProductRemove() {
         List<Product> list = new ArrayList<>();
         for(Product p : getData()){
@@ -330,33 +123,6 @@ public class ProductService {
             }
         }
         return list;
-    }
-    public static  void restoreProduct(String id){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE products set STATUS = 0 where idProduct = '"+id+"';";
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static  void hideProduct(String id){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE products set STATUS = 1 where idProduct = '"+id+"';";
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static  void UnHidenProduct(String id){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE products set STATUS = 0 where idProduct = '"+id+"';";
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
     }
     public static List<Product> getListProductForAdmin(){
         List<Product> res = new ArrayList<>();
@@ -367,25 +133,6 @@ public class ProductService {
         }
         return res;
     }
-    public static  void hideImg(String img){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE productImgs set STATUS = 1 where img = '"+img+"';";
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static  void UnHidenImg(String img){
-        Statement statement = DBConnect.getInstall().get();
-        String sql = "UPDATE productImgs set STATUS = 0 where img = '"+img+"';";
-        try {
-            statement.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-
     public static List<Comment> findCommentsByIdProduct(String idProduct){
         List<Comment> list = new ArrayList<>();
         try{
@@ -428,73 +175,6 @@ public class ProductService {
             throw new RuntimeException(e);
         }
         return detail;
-    }
-
-    public static String idMaxType(){
-        String res ="";
-        String sql= "SELECT max(idType) from typeofcake";
-        Statement statement = DBConnect.getInstall().get();
-        try {
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                res = rs.getString(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        String s = "";
-        int n = Integer.parseInt(res.substring(2));
-        if(n < 9) {
-            s  = "LB0" + (n + 1);
-        } else {
-            s = "LB" + (n + 1);
-        }
-        return s;
-    }
-    public static void addTypePro(String id, String type){
-        Statement stm = DBConnect.getInstall().get();
-        String sql = "INSERT into typeofcake VALUES('" + id + "', '"+ type+"')";
-        try {
-            stm.executeUpdate(sql);
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-
-    }
-    public static void updateType(String id, String newtype){
-        Statement stm = DBConnect.getInstall().get();
-        String sql = "UPDATE typeofcake SET name = '" + newtype + "' WHERE idType = '" + id +"'";
-        try {
-            stm.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public  static void deleteType(String id){
-        Statement stm = DBConnect.getInstall().get();
-        String sql = "DELETE FROM typeofcake WHERE idType = '" + id + "'";
-        try {
-            stm.executeUpdate(sql);
-
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    public static List<String> findProducts(String keyword) {
-        List<String> result = new ArrayList<>();
-        Statement stm = DBConnect.getInstall().get();
-        String sql = "SELECT products.productName FROM products \n" +
-                "WHERE idProduct like '%"+keyword+"20%' or productName LIKE '%"+keyword+"%'";
-        try {
-            ResultSet rs = stm.executeQuery(sql);
-            while (rs.next()){
-            result.add(rs.getString(1));
-            }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-        return result;
     }
 
 }
