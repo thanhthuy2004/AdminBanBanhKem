@@ -43,7 +43,7 @@ public class Signin extends HttpServlet {
                 session.setAttribute("cust", customer);
 
                 String previousPageUrl = (String) session.getAttribute("previousPageUrl");
-                if (previousPageUrl != null) {
+                if (previousPageUrl != null && !previousPageUrl.contains("/doSignin") && !previousPageUrl.contains("signin.jsp")) {
 
                     response.sendRedirect(previousPageUrl);
                 } else {

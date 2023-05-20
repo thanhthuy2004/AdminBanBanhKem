@@ -83,16 +83,10 @@
         </div>
         <div class="navbar-nav w-100">
             <a href="./ListReceipt_Admin" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Tổng quan</a>
-            <%--                    <a href="general_Management.jsp" class="nav-item nav-link"><i class="fa fa-user"></i>Quản lý chung</a>--%>
             <a href="./ListProduct_Admin" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Sản Phẩm</a>
 
             <a href="./ListCustomer" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Khách Hàng</a>
-<%--            <a href="./ListBlog-admin" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Tin Tức</a>--%>
             <a href="./ListReceipt_full_Admin" class="nav-item nav-link "><i class="fa fa-th me-2"></i>DS Đơn Hàng</a>
-<%--            <a href="feedbacks.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Đánh giá</a>--%>
-
-<%--            <a href="catalog_Management.jsp" class="nav-item nav-link"><i class="fa fa-file me-2"></i>QL danh mục</a>--%>
-<%--            <a href="List_Discounts" class="nav-item nav-link"><i class="fa fa-birthday-cake me-2"></i>Khuyến mãi</a>--%>
             <a href="#" class="nav-item nav-link"><i class="fa fa-arrow-alt-circle-right me-2"></i>Về trang
                 chủ</a>
             <!--  -->
@@ -124,6 +118,7 @@
                                     <h4 class="form__title">Thông tin tài khoản</h4>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+<%--                                    3. Nhập thông tin cần thay đổi vào ô input--%>
                                     <div class="form__group">
                                         <label class="form__label" for="username">Tên</label>
                                         <input type="text" id="username" name="username" class="form__input"
@@ -158,7 +153,8 @@
 
                             </div>
                             <div class="col-6" style="padding: 0;">
-                                 
+<%--                                 4. Nhấn nút lưu thay đổi --%>
+<%--                                5. Gọi hàm changeProfileAdmin trong lớp admin.js--%>
                                 <button onclick="changeProfileAdmin()" type="button" class="form__btn">Lưu thay đổi</button>
                             </div>
 

@@ -166,25 +166,28 @@ public class UserService {
         }
     }
     
-    public static void updateProfile(String name, String sdt, String diachi, String mail, User auth)  {
-        if(name == null || sdt == null || diachi == null || mail == null) return;
+    public static boolean updateProfile(String name, String sdt, String diachi, String mail, User auth)  {
         String idACC = auth.getId();
-        String sql1 = "UPDATE CUSTOMERS, ACCOUNTS set CUSTOMERS.ADDRESS = '"+diachi+"', " +
+        String sql = "UPDATE CUSTOMERS, ACCOUNTS set CUSTOMERS.ADDRESS = '"+diachi+"', " +
                 "CUSTOMERS.PHONE = '"+sdt+"', ACCOUNTS.EMAIL = '"+mail+"'," +
                 " ACCOUNTS.NAME='" +name+"'" +
                 " WHERE CUSTOMERS.id = '"+idACC+"' and CUSTOMERS.id = ACCOUNTS.id";
         Statement stm  =  DBConnect.getInstall().get();
         try {
-            // chạy câu lệnh UPDATE
-            stm.executeUpdate(sql1);
+            // 8. Thực hiện câu lệnh executeUpdate(sql)
+            stm.executeUpdate(sql);
             auth.setName(name);
             auth.setEmail(mail);
             CustomerService.getCusByIdAcc(auth.getId()).setDIACHI(diachi);
             CustomerService.getCusByIdAcc(auth.getId()).setSDT(sdt);
+            return true;
         } catch (SQLException se) {
             se.printStackTrace();
         }
+
+        return false;
     }
+
 
     public static void main(String[] args) throws UnsupportedEncodingException, SQLException {
 

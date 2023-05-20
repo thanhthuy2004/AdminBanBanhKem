@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "AdminUpdateProfile", value = "/AdminUpdateProfile")
 public class AdminUpdateProfile extends HttpServlet {
@@ -30,8 +31,22 @@ public class AdminUpdateProfile extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
 
-//  Gọi đến hàm updateProfile(username, phone, address, email, auth)
-        UserService.updateProfile(username, phone, address, email, auth);
+        PrintWriter out = response.getWriter();
+//              7. Hệ thống kiếm tra
+        if(!email.contains("@") || phone.length() > 10){
+//            7.1. Nếu email thiếu kí tự @ hoặc số điện thoại lớn hơn 10 số thì PrintWriter in ra 1
+            out.println(1);
+            out.flush();
+            out.close();
+        }else{
+//            7.2. Nếu email không thiếu kí tự @ hoặc số điện thoại không lớn hơn 10 số thì PrintWriter in ra 0
+            out.println(0);
+            out.flush();
+            out.close();
+//              7.3 Gọi đến hàm updateProfile(username, phone, address, email, auth)
+            UserService.updateProfile(username, phone, address, email, auth);
+        }
+
         request.getRequestDispatcher("edit-profile.jsp").forward(request, response);
     }
 }
