@@ -153,7 +153,8 @@
 
                             </div>
                             <div class="col-6" style="padding: 0;">
-<%--                                 4. Nhấn lưu thay đổi --%>
+<%--                                 4. Nhấn nút lưu thay đổi --%>
+<%--                                5. Gọi hàm changeProfileAdmin trong lớp admin.js--%>
                                 <button onclick="changeProfileAdmin()" type="button" class="form__btn">Lưu thay đổi</button>
                             </div>
 

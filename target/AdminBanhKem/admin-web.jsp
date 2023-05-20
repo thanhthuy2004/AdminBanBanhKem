@@ -60,15 +60,10 @@
 		</div>
         <div class="navbar-nav w-100">
             <a href="./ListReceipt_Admin" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Tổng quan</a>
-<%--            <a href="general_Management.jsp" class="nav-item nav-link"><i class="fa fa-user"></i>Quản lý chung</a>--%>
             <a href="./ListProduct_Admin" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Sản Phẩm</a>
 
             <a href="./ListCustomer" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Khách Hàng</a>
-<%--            <a href="./ListBlog-admin" class="nav-item nav-link "><i class="fa fa-th me-2"></i>DS Tin Tức</a>--%>
             <a href="./ListReceipt_full_Admin" class="nav-item nav-link "><i class="fa fa-th me-2"></i>DS Đơn Hàng</a>
-<%--            <a href="feedbacks.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>DS Đánh giá</a>--%>
-<%--            <a href="catalog_Management.jsp" class="nav-item nav-link"><i class="fa fa-file me-2"></i>QL danh mục</a>--%>
-<%--            <a href="List_Discounts" class="nav-item nav-link"><i class="fa fa-birthday-cake me-2"></i>Khuyến mãi</a>--%>
 
             <a href="#" class="nav-item nav-link"><i class="fa fa-arrow-alt-circle-right me-2"></i>Về trang chủ</a>
             <!--  -->
@@ -101,12 +96,7 @@
                         </a>
                         <%if(auth != null) {%>
                             <div class="dropdown-menu dropdown-menu-end rounded-0 rounded-bottom m-0">
-                                <% User user = UserService.findById(auth.getId()); %>
-                                <% if(user.getRole() == 2) { %>
-                                <a href="general_Management.jsp" class="dropdown-item">Quản lí cửa hàng</a>
-                                <a href="AdminDecentralization.jsp" class="dropdown-item">Phân quyền cấp cao</a>
-                                <% } else { %>
-                                <% } %>
+<%--                                1. Nhấn vào mục hồ sơ của tôi // 2. Chuyển đến trang edit-profile.jsp--%>
                                 <a href="edit-profile.jsp" class="dropdown-item">Hồ sơ của tôi</a>
                                 <a href="/doSignOut" method="get" class="dropdown-item">Đăng xuất</a>
                             </div>

@@ -282,87 +282,6 @@ document.getElementById("select-all").onclick = function ()
     else checkAll=true;
 };
 
-function filterProduct(showMore, type){
-    if(type ==null) type = document.getElementById("type").value;
-    var page =parseInt(document.getElementById("page").value) ;
-    if(showMore){
-        ++page;
-        document.getElementById("page").value=(page);
-    }else{
-        page=1;
-        document.getElementById("page").value=(page);
-    }
-
-    $.ajax({
-        url: "FilterProductForDiscount",
-        type: "POST",
-        data: {loaiBanh: type,  page: page},
-        success: function (response){
-            var productS = document.getElementById("product_table");
-            if(showMore) {productS.innerHTML += response;
-               }
-            else productS.innerHTML = response;
-        }
-    });
-    if(document.getElementById("select-all").checked== true){
-        document.getElementById("select-all").checked=false;
-        checkAll=false;
-    }
-
-}
-
-function addDiscount(){
-    var type = document.getElementById("type").value;
-    var discount = document.getElementById("giamGia").value;
-    var start = document.getElementById("start").value;
-    var end = document.getElementById("end").value;
-
-    if(checkAll){
-        $.ajax({
-            url: "Add_Discount",
-            type: "POST",
-            data: {loaiBanh: type,
-            discount: discount,
-            start: start, end: end},
-            success: function (){
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thêm khuyến mãi thành công!'
-                }).then((result) => {
-                    location.reload();
-                });
-            }
-
-        });
-    }
-    else{
-        var checkbox = document.getElementsByName('check');
-        var listIdPros= new Array();
-        var listId;
-        for(let i=0; i<checkbox.length; i++){
-            if(checkbox[i].checked==true){
-                listIdPros.push(checkbox[i].value);
-            }
-        }
-        listId = listIdPros.toString();
-        $.ajax({
-            url: "Add_Discount",
-            type: "POST",
-            data: {ids: listId,
-                discount: discount,
-                start: start, end: end},
-            success: function (){
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thêm khuyến mãi thành công!'
-                }).then((result) => {
-                    location.reload();
-                });
-            }
-
-        });
-    }
-}
 
 
 function showFilterDate(from, to, error) {
@@ -582,6 +501,7 @@ function changeProfileAdmin(){
   var email = $('#email').val();
   var address = $('#address').val();
     $.ajax({
+        // 6. Gọi đến servlet AdminUpdateProfile method POST
         url: "AdminUpdateProfile",
         type: "POST",
         data:{
@@ -590,14 +510,26 @@ function changeProfileAdmin(){
             phone: phone,
             address: address
         },
-        success: function () {
+        // 9. servlet AdminUpdateProfile trả về success
+        success: function (response) {
+            // 10. Hiển thị thông báo "Lưu thay đổi thành công"
+            if (parseInt(response) === 1) {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Lưu thay đổi thành công!',
+                    icon: 'error',
+                    text: 'Lưu thay đổi không thành công!',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#ff96b7'
                 })
 
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Lưu thay đổi thành công!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#ff96b7'
+                })
+
+            }
         }
     });
 }
@@ -833,15 +765,4 @@ function save(){
     location.reload();
 }
 
-// function showFilterDateForLog(value){
-//
-//     else if(value ==2){
-//         Swal.fire({
-//             title: 'Ngày cần lọc',
-//             input: 'date'
-//
-//         })
-//
-//     }
-// }
 

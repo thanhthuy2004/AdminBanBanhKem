@@ -510,26 +510,25 @@ function changeProfileAdmin(){
             phone: phone,
             address: address
         },
-        // 9. servlet AdminUpdateProfile trả về success
-        success: function () {
-                // 10. Hiển thị thông báo "Lưu thay đổi thành công"
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Lưu thay đổi thành công!',
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '#ff96b7'
-                })
-
-        },
-        error: function () {
-                // Hiển thị thông báo "Lưu thay đổi không thành công"
+        success: function (response) {
+            // 9.1. Hiển thị thông báo "Lưu thay đổi không thành công"
+            if (parseInt(response) === 1) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Lưu thay đổi không thành công!',
+                    text: 'Lưu thay đổi không thành công!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#ff96b7'
+                })
+            // 9.2. Hiển thị thông báo "Lưu thay đổi thành công"
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Lưu thay đổi thành công!',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#ff96b7'
                 })
 
+            }
         }
     });
 }
